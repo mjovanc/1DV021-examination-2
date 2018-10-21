@@ -9,6 +9,7 @@
 class Deck {
   constructor () {
     this.cards = []
+    this.throwedCards = []
     this.values = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King']
     this.suits = ['♦', '♠', '♣', '♥']
 
@@ -30,7 +31,7 @@ class Deck {
     }
   }
 
-  getCard() {
+  getCard () {
     return this.cards.pop()
   }
 }
