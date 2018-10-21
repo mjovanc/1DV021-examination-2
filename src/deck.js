@@ -29,6 +29,10 @@ class Deck {
       this.cards[b] = temp
     }
   }
+
+  getCard() {
+    return this.cards.pop()
+  }
 }
 
 module.exports = Deck
