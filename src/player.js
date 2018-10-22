@@ -17,4 +17,26 @@ Player.prototype.insertCard = function (card) {
   this.cards.push(card)
 }
 
+Player.prototype.pointsOfCards = function (cards) {
+  let sum = 0
+  for (let a = 0; a < cards.length; a++) {
+    if (cards[a].startsWith('Ace')) {
+      if (sum <= 7) {
+        sum += 14
+      } else if (sum > 7) {
+        sum += 1
+      }
+    } else if (cards[a].startsWith('Jack')) {
+      sum += 11
+    } else if (cards[a].startsWith('Queen')) {
+      sum += 12
+    } else if (cards[a].startsWith('King')) {
+      sum += 13
+    } else {
+      sum += cards[a] // must get a way to get the integer of the string (convert it).
+    }
+  }
+  this.totalValueOfCards = sum
+}
+
 module.exports = Player
