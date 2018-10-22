@@ -35,7 +35,7 @@ while (run) {
 
       // Checking the value and how many cards the player have and do the following
       if (players[a].cards.length === 2) {
-        return x
+        //
       } else if (players[a].cards.length > 2) {
         if (players[a].totalValueOfCards == players[a].stopValue) {
           deck.throwedCards.push(players[a].cards)

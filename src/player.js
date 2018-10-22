@@ -33,7 +33,8 @@ Player.prototype.pointsOfCards = function (cards) {
     } else if (cards[a].startsWith('King')) {
       sum += 13
     } else {
-      sum += cards[a] // must get a way to get the integer of the string (convert it).
+      let number = cards[a].replace(/[^0-9]/g, '')
+      sum += parseInt(number)
     }
   }
   this.totalValueOfCards = sum
