@@ -10,7 +10,7 @@ class Deck {
   constructor () {
     this.cards = []
     this.throwedCards = []
-    this.values = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King']
+    this.values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
     this.suits = ['♦', '♠', '♣', '♥']
 
     for (let suit in this.suits) {

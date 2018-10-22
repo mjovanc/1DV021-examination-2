@@ -4,20 +4,12 @@ class Game {
   constructor (name, players) {
     this.name = name
     this.players = players
-    this.running = undefined
-  }
-
-  running () {
-    if (players > 0) {
-      this.running = true
-    } else {
-      this.running = false
-    }
+    this.isRunning = true
   }
 
   playerWins (playerName, playerCards, dealerName) {
     console.log(
-      `${playerName}: ${playerCards.toString()} (${playerCards.totalValueOfCards})
+      `${playerName}: ${playerCards} (${playerCards.totalValueOfCards})
       \n${dealerName}: -
       \nPlayer wins!`
     )
@@ -25,9 +17,9 @@ class Game {
 
   dealerWins (playerName, playerCards, dealerName, dealerCards) {
     console.log(
-      `${playerName}: ${playerCards.toString()} (${playerCards.totalValueOfCards})
-      \n${dealerName}: ${dealerCards.toString()} (${dealerCards.totalValueOfCards})
-      \nPlayer wins!`
+      `${playerName}: ${playerCards} (${playerCards.totalValueOfCards})
+      \n${dealerName}: ${dealerCards} (${dealerCards.totalValueOfCards})
+      \nDealer wins!`
     )
   }
 }
