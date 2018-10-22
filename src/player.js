@@ -14,4 +14,8 @@ function Player (name, stopValue) {
     this.stopValue = stopValue
 }
 
+Player.prototype.insertCard = function (card) {
+    this.cards.push(card)
+}
+
 module.exports = Player
