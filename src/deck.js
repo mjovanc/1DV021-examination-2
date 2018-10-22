@@ -21,7 +21,7 @@ class Deck {
   }
 
   shuffle (cards) {
-    let b = 0;
+    let b = 0
 
     for (let a = cards.length - 1; a > 0; a -= 1) {
       b = Math.floor(Math.random() * (a + 1))
