@@ -20,19 +20,19 @@ class Deck {
     }
   }
 
-  shuffle (cards) {
+  shuffle () {
     let b = 0
 
-    for (let a = cards.length - 1; a > 0; a -= 1) {
+    for (let a = this.cards.length - 1; a > 0; a -= 1) {
       b = Math.floor(Math.random() * (a + 1))
-      let temp = cards[a]
-      cards[a] = cards[b]
-      cards[b] = temp
+      let temp = this.cards[a]
+      this.cards[a] = this.cards[b]
+      this.cards[b] = temp
     }
   }
 
-  getCard (cards) {
-    return cards.pop()
+  getCard () {
+    return this.cards.pop()
   }
 
   throwUsedCards (cards) {
