@@ -26,6 +26,7 @@ class Deck {
     }
   }
 
+
   /**
    * Shuffles the cards[] array by using the Fisher-Yates Shuffle algorithm.
    */
@@ -40,14 +41,16 @@ class Deck {
     }
   }
   
+
   /**
-   * Get a card from cards[].
+   * Getting a card from cards[].
    * @return {String}
    */
   getCard () {
     return this.cards.pop()
   }
   
+
   /**
    * Pushing array elements into usedCards[].
    * @param {Array<String>} cards
@@ -57,6 +60,7 @@ class Deck {
       this.usedCards.push(cards[card])
     }
   }
+  
   
   /**
    * Pushing array elements from usedCards[] to cards[].
@@ -69,5 +73,6 @@ class Deck {
   }
 
 }
+
 
 module.exports = Deck

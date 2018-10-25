@@ -8,11 +8,13 @@
  * @version 1.0
  */
 
+
 const Player = require('./player')
 const Deck = require('./deck')
 
 let dealer = new Player('Dealer', 8)
 let deck = new Deck()
+
 
 /**
  * Class representing a game.
@@ -28,6 +30,7 @@ class Game {
     this.isRunning = true
   }
 
+
   /**
    * Start the game
    */
@@ -40,6 +43,7 @@ class Game {
         for (let b = 0; b < 4; b++) {
           this.getCard(this.players[a])
 
+          // Defining variables for readability
           let numberOfCards = this.players[a].hand.length
           let stopValue = this.players[a].stopValue
           let totalValueOfHand = this.players[a].totalValueOfHand()
@@ -65,7 +69,7 @@ class Game {
           }
     
         }
-        // Copying used cards to new array and sets a new array
+        // Getting rid of used cards
         deck.throwUsedCards(this.players[a].hand)
         this.players[a].hand = []
       }
@@ -73,16 +77,17 @@ class Game {
     }
   }
 
+
   /**
-   * Calls method playerLost or playerWon depending on the dealers hand.
+   * Calls method playerLost() or playerWon() depending on the dealers hand.
    * @param {Object} player - The player object
-   * @callback
    */
   dealerPlays (player) {
 
     for (let i = 0; i < 4; i++) {
       this.getCard(dealer)
 
+      // Defining variables for readability
       let dealerTotalValueOfHand = dealer.totalValueOfHand()
       let numberOfCards = dealer.hand.length
 
@@ -117,6 +122,10 @@ class Game {
     dealer.hand = []
   }
 
+
+  /**
+   * Creates new player objects
+   */
   createPlayers () {
     for (let i = 0; i < this.numberOfPlayers; i++) {
       let stopValue = 8
@@ -124,6 +133,11 @@ class Game {
     }
   }
   
+
+  /**
+   * Adds cards to a player object
+   * @param {Object} object - The player object
+   */
   getCard (object) {
     if (deck.cards.length < 2) {
       deck.combineCards()
@@ -134,50 +148,65 @@ class Game {
     }
   }
 
+
+  /**
+   * Prints out text to the console that the player has won.
+   * @param {Object} player - The player object
+   * @param {Object} dealer - The dealer object
+   * @param {Boolean} busted - True or false
+   */
   playerWon(player, dealer, busted) {
     let output = ''
     if (busted) {
       output = (
         player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
-        dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ') BUSTED!\n' +
-        player.name + ' wins!\n'
+        dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')' + ('\x1b[31m' + ' BUSTED!\n') +
+        ('\x1b[42m' + player.name + ' wins!\n')
       )
     } else {
       if (dealer.hand.length < 1) {
         output = (
           player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
           dealer.name + ': ' + dealer.hand.join(', ') + '-\n' +
-          player.name + ' wins!\n'
+          ('\x1b[42m' + player.name + ' wins!\n')
         )
       } else {
         output = (
           player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
           dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')\n' +
-          player.name + ' wins!\n'
+          ('\x1b[42m' + player.name + ' wins!\n')
         )
       }
     }
     console.log(output)
   }
 
+
+  /**
+   * Prints out text to the console that the dealer has won..
+   * @param {Object} player - The player object
+   * @param {Object} dealer - The dealer object
+   * @param {Boolean} busted - True or false
+   */
   playerLost(player, dealer, busted) {
     let output = ''
     if (busted) {
       output = (
-        player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ') BUSTED!\n' +
+        player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')' + ('\x1b[31m' + ' BUSTED!\n') +
         dealer.name + ': ' + dealer.hand.join(', ') + '-\n' +
-        dealer.name + ' wins!\n'
+        ('\x1b[41m' + dealer.name + ' wins!\n')
       )
     } else {
       output = (
         player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
         dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')\n' +
-        dealer.name + ' wins!\n'
+        ('\x1b[41m' + dealer.name + ' wins!\n')
       )
     }
     console.log(output)
   }
 
 }
+
 
 module.exports = Game
