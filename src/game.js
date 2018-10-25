@@ -1,18 +1,36 @@
 'use strict'
 
+/**
+ * Game module.
+ *
+ * @module src/game
+ * @author Marcus Cvjeticanin
+ * @version 1.0
+ */
+
 const Player = require('./player')
 const Deck = require('./deck')
 
 let dealer = new Player('Dealer', 8)
 let deck = new Deck()
 
+/**
+ * Class representing a game.
+ */
 class Game {
+  /**
+   * Create a game
+   * @param {Number} numberOfPlayers - Number of players to create
+   */
   constructor (numberOfPlayers) {
     this.numberOfPlayers = numberOfPlayers
     this.players = []
     this.isRunning = true
   }
 
+  /**
+   * Start the game
+   */
   start () {
     while (this.isRunning) {
       this.createPlayers()
@@ -55,6 +73,11 @@ class Game {
     }
   }
 
+  /**
+   * Calls method playerLost or playerWon depending on the dealers hand.
+   * @param {Object} player - The player object
+   * @callback
+   */
   dealerPlays (player) {
 
     for (let i = 0; i < 4; i++) {
@@ -68,15 +91,12 @@ class Game {
         if (numberOfCards >= 2) {
           if (dealerTotalValueOfHand >= dealer.stopValue) {
             if (dealerTotalValueOfHand > player.totalValueOfHand()) {
-              // console.log('Dealer wins! (Dealer has a bigger hand)')
               this.playerLost(player, dealer, false)
               break
             } else if (dealerTotalValueOfHand == player.totalValueOfHand()) {
-              // console.log('Dealer wins! (Same value of hand)')
               this.playerLost(player, dealer, false)
               break
             } else if (dealerTotalValueOfHand < player.totalValueOfHand()) {
-              // console.log('Player wins! (Player has a bigger hand)')
               this.playerWon(player, dealer, false)
               break
             }
@@ -84,11 +104,9 @@ class Game {
         }
 
       } else if (dealerTotalValueOfHand > 21) {
-        // console.log('Player wins! (Dealer has a bigger hand than 21)')
         this.playerWon(player, dealer, true)
         break
       } else if (dealerTotalValueOfHand == 21) {
-        // console.log('Dealer wins! (Dealer got 21 on hand)')
         this.playerLost(player, dealer, false)
         break
       }
@@ -101,8 +119,8 @@ class Game {
 
   createPlayers () {
     for (let i = 0; i < this.numberOfPlayers; i++) {
-      //let randomNumber = Math.floor((Math.random() * 11) + 8)
-      this.players[i] = new Player('Player #' + (i + 1), 10)
+      let stopValue = 8
+      this.players[i] = new Player('Player #' + (i + 1), stopValue)
     }
   }
   

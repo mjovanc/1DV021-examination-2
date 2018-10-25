@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * Player module.
  *
@@ -6,18 +8,36 @@
  * @version 1.0
  */
 
+
+/**
+ * Represents a player
+ * @constructor
+ * @param {String} name - The name of the player
+ * @param {Number} stopValue - The stop value for the player
+ */
 function Player (name, stopValue) {
   this.name = name
   this.hand = []
   this.stopValue = stopValue
 }
 
+/**
+ * Push a card to the player hand array.
+ * @memberof Player
+ * @param {String} card - The card that will be pushed
+ */
 Player.prototype.insertCard = function (card) {
   this.hand.push(card)
 }
 
+/**
+ * Returns the total value of the players current hand.
+ * @memberof Player
+ * @returns {Number} sum - The sum of the hand
+ */
 Player.prototype.totalValueOfHand = function () {
   let sum = 0
+  
   for (let a = 0; a < this.hand.length; a++) {
     if (this.hand[a].startsWith('A')) {
       if (sum <= 7) {
@@ -36,6 +56,7 @@ Player.prototype.totalValueOfHand = function () {
       sum += parseInt(number)
     }
   }
+  
   return sum
 }
 

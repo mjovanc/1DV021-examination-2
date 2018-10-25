@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * Deck module.
  *
@@ -6,6 +8,10 @@
  * @version 1.0
  */
 
+
+/**
+ * Class representing a deck.
+ */
 class Deck {
   constructor () {
     this.cards = []
@@ -20,6 +26,9 @@ class Deck {
     }
   }
 
+  /**
+   * Shuffles the cards[] array by using the Fisher-Yates Shuffle algorithm.
+   */
   shuffle () {
     let b = 0
 
@@ -30,17 +39,28 @@ class Deck {
       this.cards[b] = temp
     }
   }
-  // create static ?
+  
+  /**
+   * Get a card from cards[].
+   * @return {String}
+   */
   getCard () {
     return this.cards.pop()
   }
   
+  /**
+   * Pushing array elements into usedCards[].
+   * @param {Array<String>} cards
+   */
   throwUsedCards (cards) {
     for (let card in cards) {
       this.usedCards.push(cards[card])
     }
   }
   
+  /**
+   * Pushing array elements from usedCards[] to cards[].
+   */
   combineCards () {
     for (let card in this.usedCards) {
       this.cards.push(this.usedCards[card])
