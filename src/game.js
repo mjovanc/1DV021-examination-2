@@ -3,104 +3,100 @@
 const Player = require('./player')
 const Deck = require('./deck')
 
+let dealer = new Player('Dealer', 8)
+let deck = new Deck()
+
 class Game {
   constructor (numberOfPlayers) {
     this.numberOfPlayers = numberOfPlayers
     this.players = []
-    this.dealer = new Player('Dealer', 18)
-    this.deck = new Deck()
     this.isRunning = true
   }
 
   start () {
     while (this.isRunning) {
       this.createPlayers()
-      
-      this.deck.shuffle()
+      deck.shuffle()
     
       for (let a = 0; a < this.players.length; a++) {
         for (let b = 0; b < 4; b++) {
-          // Defining variables for readability
-          let deck = this.deck
-          let player = this.players[a]
-    
-          // Gives card to hand
-          if (deck.cards.length < 2) {
-            deck.combineCards()
-            deck.shuffle()
-            player.insertCard(deck.getCard())
-          } else {
-            player.insertCard(deck.getCard())
-          }
+          this.getCard(this.players[a])
 
-          // Defining variables for readability
-          let numberOfCards = player.hand.length
-          let stopValue = player.stopValue
-          let totalValueOfHand = player.totalValueOfHand()
-  
-          // Check of the players hand
-          if (totalValueOfHand > 21) {
-            this.playerLost(player, this.dealer)
-            break
-          } else if (totalValueOfHand < 21) {
+          let numberOfCards = this.players[a].hand.length
+          let stopValue = this.players[a].stopValue
+          let totalValueOfHand = this.players[a].totalValueOfHand()
+
+          if (totalValueOfHand < 21) {
             
-            if (numberOfCards > 2) {
-              // if the player is satisfied
+            if (numberOfCards >= 2 && numberOfCards < 5) {
               if (totalValueOfHand >= stopValue) {
-                //this.dealerAgainstPlayer(this.players[a])
-                //console.log('Satisfied and more cards than 2.\n')
-                this.dealerPlays(player)
+                this.dealerPlays(this.players[a])
                 break
               }
-            } else if (numberOfCards === 2) {
-              // if the player is satisfied
-              if (totalValueOfHand >= stopValue) {
-                //console.log('Satisfied and cards equal to 2.\n')
-                this.dealerPlays(player)
-                break
-              }
-              // Maybe dont need: 5 && players[a].totalValueOfHand() < 21
-            } else if (numberOfCards === 5 && totalValueOfHand < 21) {
-              this.playerWon(player, this.dealer)
+            } else if (numberOfCards == 5) {
+              this.dealerPlays(this.players[a])
               break
             }
-    
-          } else if (totalValueOfHand === 21) {
-            this.playerWon(player, this.dealer)
+
+          } else if (totalValueOfHand > 21) {
+            this.playerLost(this.players[a], dealer, true)
+            break
+          } else if (totalValueOfHand == 21) {
+            this.playerWon(this.players[a], dealer, false)
             break
           }
     
         }
-        this.deck.throwUsedCards(this.players[a].hand)
+        // Copying used cards to new array and sets a new array
+        deck.throwUsedCards(this.players[a].hand)
+        this.players[a].hand = []
       }
       this.isRunning = false
     }
   }
 
   dealerPlays (player) {
-    for (let i = 0; i < 4; i++) {
-      
-      if (this.deck.cards.length < 2) {
-        this.deck.combineCards()
-        this.deck.shuffle()
-        this.dealer.insertCard(this.deck.getCard())
-      } else {
-        this.dealer.insertCard(this.deck.getCard())
-      }
 
-      if (this.dealer.totalValueOfHand() > 21) {
-        this.playerWon(player, this.dealer)
-        break;
-      } else if (this.dealer.totalValueOfHand() === 21) {
-        this.playerLost(player, this.dealer)
-        break;
-      } else if (this.dealer.totalValueOfHand() >= this.dealer.stopValue) {
-        if (this.dealer.totalValueOfHand() > player.totalValueOfHand()) {
-          this.playerLost(player, this.dealer)
-          break;
+    for (let i = 0; i < 4; i++) {
+      this.getCard(dealer)
+
+      let dealerTotalValueOfHand = dealer.totalValueOfHand()
+      let numberOfCards = dealer.hand.length
+
+      if (dealerTotalValueOfHand < 21) {
+            
+        if (numberOfCards >= 2) {
+          if (dealerTotalValueOfHand >= dealer.stopValue) {
+            if (dealerTotalValueOfHand > player.totalValueOfHand()) {
+              // console.log('Dealer wins! (Dealer has a bigger hand)')
+              this.playerLost(player, dealer, false)
+              break
+            } else if (dealerTotalValueOfHand == player.totalValueOfHand()) {
+              // console.log('Dealer wins! (Same value of hand)')
+              this.playerLost(player, dealer, false)
+              break
+            } else if (dealerTotalValueOfHand < player.totalValueOfHand()) {
+              // console.log('Player wins! (Player has a bigger hand)')
+              this.playerWon(player, dealer, false)
+              break
+            }
+          }
         }
+
+      } else if (dealerTotalValueOfHand > 21) {
+        // console.log('Player wins! (Dealer has a bigger hand than 21)')
+        this.playerWon(player, dealer, true)
+        break
+      } else if (dealerTotalValueOfHand == 21) {
+        // console.log('Dealer wins! (Dealer got 21 on hand)')
+        this.playerLost(player, dealer, false)
+        break
       }
+      
     }
+    // Getting rid of used cards
+    deck.throwUsedCards(dealer.hand)
+    dealer.hand = []
   }
 
   createPlayers () {
@@ -109,21 +105,59 @@ class Game {
       this.players[i] = new Player('Player #' + (i + 1), 10)
     }
   }
-
-  playerWon(player, dealer) {
-    console.log(
-      player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
-      dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')\n' +
-      player.name + ' wins!\n'
-    )
+  
+  getCard (object) {
+    if (deck.cards.length < 2) {
+      deck.combineCards()
+      deck.shuffle()
+      object.insertCard(deck.getCard())
+    } else {
+      object.insertCard(deck.getCard())
+    }
   }
 
-  playerLost(player, dealer) {
-    console.log(
-      player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ') BUSTED!\n' +
-      dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')\n' +
-      dealer.name + ' wins!\n'
-    )
+  playerWon(player, dealer, busted) {
+    let output = ''
+    if (busted) {
+      output = (
+        player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
+        dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ') BUSTED!\n' +
+        player.name + ' wins!\n'
+      )
+    } else {
+      if (dealer.hand.length < 1) {
+        output = (
+          player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
+          dealer.name + ': ' + dealer.hand.join(', ') + '-\n' +
+          player.name + ' wins!\n'
+        )
+      } else {
+        output = (
+          player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
+          dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')\n' +
+          player.name + ' wins!\n'
+        )
+      }
+    }
+    console.log(output)
+  }
+
+  playerLost(player, dealer, busted) {
+    let output = ''
+    if (busted) {
+      output = (
+        player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ') BUSTED!\n' +
+        dealer.name + ': ' + dealer.hand.join(', ') + '-\n' +
+        dealer.name + ' wins!\n'
+      )
+    } else {
+      output = (
+        player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
+        dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')\n' +
+        dealer.name + ' wins!\n'
+      )
+    }
+    console.log(output)
   }
 
 }

@@ -30,17 +30,17 @@ class Deck {
       this.cards[b] = temp
     }
   }
-
+  // create static ?
   getCard () {
     return this.cards.pop()
   }
-
+  
   throwUsedCards (cards) {
     for (let card in cards) {
       this.usedCards.push(cards[card])
     }
   }
-
+  
   combineCards () {
     for (let card in this.usedCards) {
       this.cards.push(this.usedCards[card])
