@@ -8,6 +8,8 @@
 
 'use strict'
 
+const utils = require('./utils')
+
 
 /**
  * Class representing a deck.
@@ -56,6 +58,8 @@ class Deck {
    * @param {Array<String>} cards
    */
   throwUsedCards (cards) {
+    utils.checkArray(cards)
+    
     for (let card in cards) {
       this.usedCards.push(cards[card])
     }

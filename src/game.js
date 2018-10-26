@@ -10,6 +10,7 @@
 
 const Player = require('./Player')
 const Deck = require('./Deck')
+const utils = require('./utils')
 
 let dealer = new Player('Dealer', 8)
 let deck = new Deck()
@@ -82,6 +83,7 @@ class Game {
    * @param {Object} player - The player object
    */
   dealerPlays (player) {
+    utils.checkPlayer(player)
 
     for (let i = 0; i < 4; i++) {
       this.getCard(dealer)
@@ -138,6 +140,8 @@ class Game {
    * @param {Object} object - The player object
    */
   getCard (object) {
+    utils.checkPlayer(object)
+
     if (deck.cards.length < 2) {
       deck.combineCards()
       deck.shuffle()

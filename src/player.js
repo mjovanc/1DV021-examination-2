@@ -8,6 +8,8 @@
 
 'use strict'
 
+const utils = require('./utils')
+
 
 /**
  * Represents a player

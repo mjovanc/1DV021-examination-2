@@ -7,9 +7,8 @@
 'use strict'
 
 const Game = require('./src/Game')
+const numberOfPlayers = 30
 
-const amountOfPlayers = 30
-
-let game = new Game(amountOfPlayers)
+let game = new Game(numberOfPlayers)
 
 game.start()
