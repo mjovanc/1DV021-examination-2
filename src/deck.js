@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Deck module.
  *
@@ -7,6 +5,8 @@
  * @author Marcus Cvjeticanin
  * @version 1.0
  */
+
+'use strict'
 
 
 /**
@@ -61,7 +61,7 @@ class Deck {
     }
   }
   
-  
+
   /**
    * Pushing array elements from usedCards[] to cards[].
    */

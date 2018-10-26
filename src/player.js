@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Player module.
  *
@@ -7,6 +5,8 @@
  * @author Marcus Cvjeticanin
  * @version 1.0
  */
+
+'use strict'
 
 
 /**
