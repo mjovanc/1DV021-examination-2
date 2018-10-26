@@ -162,21 +162,21 @@ class Game {
     let output = ''
     if (busted) {
       output = (
-        player.name + ': ' + player.hand.join(', ') + ' (' + ('\x1b[1m' + player.totalValueOfHand()) + ')\n' +
-        dealer.name + ': ' + dealer.hand.join(', ') + ' (' + ('\x1b[1m' + dealer.totalValueOfHand()) + ')' + ('\x1b[31m' + ' BUSTED!\n') +
+        player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
+        dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')' + ('\x1b[31m' + ' BUSTED!\n') +
         ('\x1b[42m' + player.name + ' wins!\n')
       )
     } else {
       if (dealer.hand.length < 1) {
         output = (
-          player.name + ': ' + player.hand.join(', ') + ' (' + ('\x1b[1m' + player.totalValueOfHand()) + ')\n' +
+          player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
           dealer.name + ': ' + dealer.hand.join(', ') + '-\n' +
           ('\x1b[42m' + player.name + ' wins!\n')
         )
       } else {
         output = (
-          player.name + ': ' + player.hand.join(', ') + ' (' + ('\x1b[1m' + player.totalValueOfHand()) + ')\n' +
-          dealer.name + ': ' + dealer.hand.join(', ') + ' (' + ('\x1b[1m' + dealer.totalValueOfHand()) + ')\n' +
+          player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
+          dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')\n' +
           ('\x1b[42m' + player.name + ' wins!\n')
         )
       }
@@ -195,14 +195,14 @@ class Game {
     let output = ''
     if (busted) {
       output = (
-        player.name + ': ' + player.hand.join(', ') + ' (' + ('\x1b[1m' + player.totalValueOfHand()) + ')' + ('\x1b[31m' + ' BUSTED!\n') +
+        player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')' + ('\x1b[31m' + ' BUSTED!\n') +
         dealer.name + ': ' + dealer.hand.join(', ') + '-\n' +
         ('\x1b[41m' + dealer.name + ' wins!\n')
       )
     } else {
       output = (
-        player.name + ': ' + player.hand.join(', ') + ' (' + ('\x1b[1m' + player.totalValueOfHand()) + ')\n' +
-        dealer.name + ': ' + dealer.hand.join(', ') + ' (' + ('\x1b[1m' + dealer.totalValueOfHand()) + ')\n' +
+        player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
+        dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')\n' +
         ('\x1b[41m' + dealer.name + ' wins!\n')
       )
     }
