@@ -85,7 +85,7 @@ class Game {
   dealerPlays (player) {
     utils.checkPlayer(player)
 
-    for (let i = 0; i < 4; i++) {
+    for (let a = 0; a < 4; a++) {
       this.getCard(dealer)
 
       // Defining variables for readability
@@ -128,15 +128,15 @@ class Game {
    * Creates new player objects
    */
   createPlayers () {
-    for (let i = 0; i < this.numberOfPlayers; i++) {
+    for (let a = 0; a < this.numberOfPlayers; a++) {
       let stopValue = 8
-      this.players[i] = new Player('Player #' + (i + 1), stopValue)
+      this.players[a] = new Player('Player #' + (a + 1), stopValue)
     }
   }
   
 
   /**
-   * Adds cards to a player object
+   * Inserting cards to a player objects hand.
    * @param {Object} object - The player object
    */
   getCard (object) {
@@ -159,6 +159,9 @@ class Game {
    * @param {Boolean} busted - True or false
    */
   playerWon(player, dealer, busted) {
+    utils.checkPlayer(player)
+    utils.checkPlayer(dealer)
+    
     let output = ''
     if (busted) {
       output = (
@@ -192,6 +195,9 @@ class Game {
    * @param {Boolean} busted - True or false
    */
   playerLost(player, dealer, busted) {
+    utils.checkPlayer(player)
+    utils.checkPlayer(dealer)
+    
     let output = ''
     if (busted) {
       output = (

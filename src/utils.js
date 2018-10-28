@@ -1,6 +1,12 @@
-'use strict'
+/**
+ * Utils module.
+ *
+ * @module src/utils
+ * @author Marcus Cvjeticanin
+ * @version 1.0
+ */
 
-const Player = require('./Player')
+'use strict'
 
 
 /**
