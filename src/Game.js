@@ -26,7 +26,7 @@ class Game {
    */
   constructor (numberOfPlayers) {
     this.numberOfPlayers = numberOfPlayers
-    this.players = []
+    this._players = []
     this.isRunning = true
   }
 
@@ -39,39 +39,39 @@ class Game {
       this.createPlayers()
       deck.shuffle()
     
-      for (let a = 0; a < this.players.length; a++) {
+      for (let a = 0; a < this._players.length; a++) {
         for (let b = 0; b < 4; b++) {
-          this.getCard(this.players[a])
+          this.getCard(this._players[a])
 
           // Defining variables for readability
-          let numberOfCards = this.players[a].hand.length
-          let stopValue = this.players[a].stopValue
-          let totalValueOfHand = this.players[a].totalValueOfHand()
+          let numberOfCards = this._players[a].hand.length
+          let stopValue = this._players[a].stopValue
+          let totalValueOfHand = this._players[a].totalValueOfHand()
 
           if (totalValueOfHand < 21) {
             
             if (numberOfCards >= 2 && numberOfCards < 5) {
               if (totalValueOfHand >= stopValue) {
-                this.dealerPlays(this.players[a])
+                this.dealerPlays(this._players[a])
                 break
               }
             } else if (numberOfCards == 5) {
-              this.dealerPlays(this.players[a])
+              this.dealerPlays(this._players[a])
               break
             }
 
           } else if (totalValueOfHand > 21) {
-            this.playerLost(this.players[a], dealer, true)
+            this.playerLost(this._players[a], dealer, true)
             break
           } else if (totalValueOfHand == 21) {
-            this.playerWon(this.players[a], dealer, false)
+            this.playerWon(this._players[a], dealer, false)
             break
           }
     
         }
         // Getting rid of used cards
-        deck.throwUsedCards(this.players[a].hand)
-        this.players[a].hand = []
+        deck.throwUsedCards(this._players[a].hand)
+        this._players[a].hand = []
       }
       this.isRunning = false
     }
@@ -130,7 +130,7 @@ class Game {
   createPlayers () {
     for (let a = 0; a < this.numberOfPlayers; a++) {
       let stopValue = 8
-      this.players[a] = new Player('Player #' + (a + 1), stopValue)
+      this._players[a] = new Player('Player #' + (a + 1), stopValue)
     }
   }
   

@@ -16,14 +16,14 @@ const utils = require('./utils')
  */
 class Deck {
   constructor () {
-    this.cards = []
-    this.usedCards = []
-    this.values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
-    this.suits = ['♦', '♠', '♣', '♥']
+    this._cards = []
+    this._usedCards = []
+    let values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
+    let suits = ['♦', '♠', '♣', '♥']
 
-    for (let suit in this.suits) {
-      for (let value in this.values) {
-        this.cards.push(`${this.values[value]} ${this.suits[suit]}`)
+    for (let suit in suits) {
+      for (let value in values) {
+        this._cards.push(`${values[value]} ${suits[suit]}`)
       }
     }
   }
@@ -35,12 +35,20 @@ class Deck {
   shuffle () {
     let b = 0
 
-    for (let a = this.cards.length - 1; a > 0; a -= 1) {
+    for (let a = this._cards.length - 1; a > 0; a -= 1) {
       b = Math.floor(Math.random() * (a + 1))
-      let temp = this.cards[a]
-      this.cards[a] = this.cards[b]
-      this.cards[b] = temp
+      let temp = this._cards[a]
+      this._cards[a] = this._cards[b]
+      this._cards[b] = temp
     }
+  }
+
+  /**
+   * Returns the cards
+   * @returns {Array<String>}
+   */
+  get cards () {
+    return this._cards
   }
   
 
@@ -49,7 +57,7 @@ class Deck {
    * @return {String}
    */
   getCard () {
-    return this.cards.pop()
+    return this._cards.pop()
   }
   
 
@@ -61,7 +69,7 @@ class Deck {
     utils.checkArray(cards)
     
     for (let card in cards) {
-      this.usedCards.push(cards[card])
+      this._usedCards.push(cards[card])
     }
   }
   
@@ -70,10 +78,10 @@ class Deck {
    * Pushing array elements from usedCards[] to cards[].
    */
   combineCards () {
-    for (let card in this.usedCards) {
-      this.cards.push(this.usedCards[card])
+    for (let card in this._usedCards) {
+      this._cards.push(this._usedCards[card])
     }
-    this.usedCards = []
+    this._usedCards = []
   }
 
 }
