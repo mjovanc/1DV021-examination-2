@@ -53,10 +53,10 @@ class Deck {
   
 
   /**
-   * Getting a card from cards[].
+   * Getting a card from cards.
    * @return {String}
    */
-  getCard () {
+  get card () {
     return this._cards.pop()
   }
   

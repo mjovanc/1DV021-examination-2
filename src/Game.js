@@ -27,6 +27,7 @@ class Game {
   constructor (numberOfPlayers) {
     this.numberOfPlayers = numberOfPlayers
     this._players = []
+    this.stats = {playersWon: 0, dealerWon: 0, playersBusted: 0, dealerBusted: 0}
     this.isRunning = true
   }
 
@@ -73,6 +74,7 @@ class Game {
         deck.throwUsedCards(this._players[a].hand)
         this._players[a].hand = []
       }
+      this.statistics()
       this.isRunning = false
     }
   }
@@ -145,9 +147,9 @@ class Game {
     if (deck.cards.length < 2) {
       deck.combineCards()
       deck.shuffle()
-      object.insertCard(deck.getCard())
+      object.insertCard(deck.card)
     } else {
-      object.insertCard(deck.getCard())
+      object.insertCard(deck.card)
     }
   }
 
@@ -161,9 +163,12 @@ class Game {
   playerWon(player, dealer, busted) {
     utils.checkPlayer(player)
     utils.checkPlayer(dealer)
+
+    this.stats.playersWon += 1
     
     let output = ''
     if (busted) {
+      this.stats.dealerBusted += 1
       output = (
         player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
         dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')' + ('\x1b[31m' + ' BUSTED!\n') +
@@ -197,9 +202,12 @@ class Game {
   playerLost(player, dealer, busted) {
     utils.checkPlayer(player)
     utils.checkPlayer(dealer)
+
+    this.stats.dealerWon += 1
     
     let output = ''
     if (busted) {
+      this.stats.playersBusted += 1
       output = (
         player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')' + ('\x1b[31m' + ' BUSTED!\n') +
         dealer.name + ': ' + dealer.hand.join(', ') + '-\n' +
@@ -213,6 +221,18 @@ class Game {
       )
     }
     console.log(output)
+  }
+
+
+  /**
+   * Displaying stats of the game
+   * @memberof Game
+   */
+  statistics () {
+    console.log('STATISTICS OF GAME\n')
+    for (let s in this.stats) {
+      console.log(s + ': ' + this.stats[s])
+    }
   }
 
 }
