@@ -44,7 +44,7 @@ class Deck {
   }
 
   /**
-   * Returns the cards
+   * Getting the cards
    * @returns {Array<String>}
    */
   get cards () {
@@ -62,7 +62,7 @@ class Deck {
   
 
   /**
-   * Pushing array elements into usedCards[].
+   * Pushing array elements into usedCards.
    * @param {Array<String>} cards
    */
   throwUsedCards (cards) {
@@ -75,7 +75,7 @@ class Deck {
   
 
   /**
-   * Pushing array elements from usedCards[] to cards[].
+   * Pushing array elements from usedCards to cards.
    */
   combineCards () {
     for (let card in this._usedCards) {

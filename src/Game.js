@@ -57,7 +57,7 @@ class Game {
                 break
               }
             } else if (numberOfCards == 5) {
-              this.dealerPlays(this._players[a])
+              this.playerWon(this._players[a], dealer, false)
               break
             }
 
@@ -167,6 +167,7 @@ class Game {
     this.stats.playersWon += 1
     
     let output = ''
+    
     if (busted) {
       this.stats.dealerBusted += 1
       output = (
@@ -206,6 +207,7 @@ class Game {
     this.stats.dealerWon += 1
     
     let output = ''
+    
     if (busted) {
       this.stats.playersBusted += 1
       output = (
@@ -230,6 +232,7 @@ class Game {
    */
   statistics () {
     console.log('STATISTICS OF GAME\n')
+    
     for (let s in this.stats) {
       console.log(s + ': ' + this.stats[s])
     }
