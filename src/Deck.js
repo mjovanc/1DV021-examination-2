@@ -30,7 +30,7 @@ class Deck {
 
 
   /**
-   * Shuffles the cards[] array by using the Fisher-Yates Shuffle algorithm.
+   * Shuffles the cards array by using the Fisher-Yates Shuffle algorithm.
    */
   shuffle () {
     let b = 0

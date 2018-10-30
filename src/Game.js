@@ -27,7 +27,12 @@ class Game {
   constructor (numberOfPlayers) {
     this.numberOfPlayers = numberOfPlayers
     this._players = []
-    this.stats = {playersWon: 0, dealerWon: 0, playersBusted: 0, dealerBusted: 0}
+    this.stats = [
+      {name: 'Wins by Players', value: 0},
+      {name: 'Wins by Dealer', value: 0},
+      {name: 'Busted Players', value: 0},
+      {name: 'Busted Dealer', value: 0},
+    ]
     this.isRunning = true
   }
 
@@ -164,12 +169,12 @@ class Game {
     utils.checkPlayer(player)
     utils.checkPlayer(dealer)
 
-    this.stats.playersWon += 1
+    this.stats[0].value += 1
     
     let output = ''
     
     if (busted) {
-      this.stats.dealerBusted += 1
+      this.stats[3].value += 1
       output = (
         player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')\n' +
         dealer.name + ': ' + dealer.hand.join(', ') + ' (' + dealer.totalValueOfHand() + ')' + ('\x1b[31m' + ' BUSTED!\n') +
@@ -204,12 +209,12 @@ class Game {
     utils.checkPlayer(player)
     utils.checkPlayer(dealer)
 
-    this.stats.dealerWon += 1
+    this.stats[1].value += 1
     
     let output = ''
     
     if (busted) {
-      this.stats.playersBusted += 1
+      this.stats[2].value += 1
       output = (
         player.name + ': ' + player.hand.join(', ') + ' (' + player.totalValueOfHand() + ')' + ('\x1b[31m' + ' BUSTED!\n') +
         dealer.name + ': ' + dealer.hand.join(', ') + '-\n' +
@@ -227,14 +232,14 @@ class Game {
 
 
   /**
-   * Displaying stats of the game
+   * Displaying statistics of the game
    * @memberof Game
    */
   statistics () {
     console.log('STATISTICS OF GAME\n')
     
     for (let s in this.stats) {
-      console.log(s + ': ' + this.stats[s])
+      console.log(this.stats[s].name + ': ' + this.stats[s].value)
     }
   }
 
