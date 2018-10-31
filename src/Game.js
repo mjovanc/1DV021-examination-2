@@ -15,7 +15,6 @@ const utils = require('./utils')
 let dealer = new Player('Dealer', 8)
 let deck = new Deck()
 
-
 /**
  * Class representing a game.
  */
@@ -28,14 +27,13 @@ class Game {
     this.numberOfPlayers = numberOfPlayers
     this._players = []
     this.stats = [
-      {name: 'Wins by Players', value: 0},
-      {name: 'Wins by Dealer', value: 0},
-      {name: 'Busted Players', value: 0},
-      {name: 'Busted Dealer', value: 0},
+      { name: 'Wins by Players', value: 0 },
+      { name: 'Wins by Dealer', value: 0 },
+      { name: 'Busted Players', value: 0 },
+      { name: 'Busted Dealer', value: 0 }
     ]
     this.isRunning = true
   }
-
 
   /**
    * Start the game
@@ -44,7 +42,7 @@ class Game {
     while (this.isRunning) {
       this.createPlayers()
       deck.shuffle()
-    
+
       for (let a = 0; a < this._players.length; a++) {
         for (let b = 0; b < 4; b++) {
           this.getCard(this._players[a])
@@ -55,7 +53,6 @@ class Game {
           let totalValueOfHand = this._players[a].totalValueOfHand()
 
           if (totalValueOfHand < 21) {
-            
             if (numberOfCards >= 2 && numberOfCards < 5) {
               if (totalValueOfHand >= stopValue) {
                 this.dealerPlays(this._players[a])
@@ -65,7 +62,6 @@ class Game {
               this.playerWon(this._players[a], dealer, false)
               break
             }
-
           } else if (totalValueOfHand > 21) {
             this.playerLost(this._players[a], dealer, true)
             break
@@ -73,7 +69,6 @@ class Game {
             this.playerWon(this._players[a], dealer, false)
             break
           }
-    
         }
         // Getting rid of used cards
         deck.throwUsedCards(this._players[a].hand)
@@ -83,7 +78,6 @@ class Game {
       this.isRunning = false
     }
   }
-
 
   /**
    * Calls method playerLost() or playerWon() depending on the dealers hand.
@@ -100,7 +94,6 @@ class Game {
       let numberOfCards = dealer.hand.length
 
       if (dealerTotalValueOfHand < 21) {
-            
         if (numberOfCards >= 2) {
           if (dealerTotalValueOfHand >= dealer.stopValue) {
             if (dealerTotalValueOfHand > player.totalValueOfHand()) {
@@ -115,7 +108,6 @@ class Game {
             }
           }
         }
-
       } else if (dealerTotalValueOfHand > 21) {
         this.playerWon(player, dealer, true)
         break
@@ -123,13 +115,11 @@ class Game {
         this.playerLost(player, dealer, false)
         break
       }
-      
     }
     // Getting rid of used cards
     deck.throwUsedCards(dealer.hand)
     dealer.hand = []
   }
-
 
   /**
    * Creates new player objects
@@ -140,7 +130,6 @@ class Game {
       this._players[a] = new Player('Player #' + (a + 1), stopValue)
     }
   }
-  
 
   /**
    * Inserting cards to a player objects hand.
@@ -158,21 +147,20 @@ class Game {
     }
   }
 
-
   /**
    * Prints out text to the console that the player has won.
    * @param {Object} player - The player object
    * @param {Object} dealer - The dealer object
    * @param {Boolean} busted - True or false
    */
-  playerWon(player, dealer, busted) {
+  playerWon (player, dealer, busted) {
     utils.checkPlayer(player)
     utils.checkPlayer(dealer)
 
     this.stats[0].value += 1
-    
+
     let output = ''
-    
+
     if (busted) {
       this.stats[3].value += 1
       output = (
@@ -198,21 +186,20 @@ class Game {
     console.log(output)
   }
 
-
   /**
    * Prints out text to the console that the dealer has won..
    * @param {Object} player - The player object
    * @param {Object} dealer - The dealer object
    * @param {Boolean} busted - True or false
    */
-  playerLost(player, dealer, busted) {
+  playerLost (player, dealer, busted) {
     utils.checkPlayer(player)
     utils.checkPlayer(dealer)
 
     this.stats[1].value += 1
-    
+
     let output = ''
-    
+
     if (busted) {
       this.stats[2].value += 1
       output = (
@@ -230,20 +217,17 @@ class Game {
     console.log(output)
   }
 
-
   /**
    * Displaying statistics of the game
    * @memberof Game
    */
   statistics () {
     console.log('STATISTICS OF GAME\n')
-    
+
     for (let s in this.stats) {
       console.log(this.stats[s].name + ': ' + this.stats[s].value)
     }
   }
-
 }
-
 
 module.exports = Game

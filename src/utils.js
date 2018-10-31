@@ -8,10 +8,9 @@
 
 'use strict'
 
-
 /**
  * Throws Error/TypeError if not array or empty.
- * @param {Array<String>} array 
+ * @param {Array<String>} array
  * @throws {TypeError} The passed argument is not an array.
  * @throws {Error} The passed array contains no elements.
  */
@@ -23,7 +22,6 @@ function checkArray (array) {
   }
 }
 
-
 /**
  * Throws TypeError if not a player object.
  * @param {Object} player
@@ -34,7 +32,6 @@ function checkPlayer (player) {
     throw new TypeError('The passed argument is not a player object.')
   }
 }
-
 
 module.exports.checkArray = checkArray
 module.exports.checkPlayer = checkPlayer

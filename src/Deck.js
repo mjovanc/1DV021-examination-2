@@ -10,7 +10,6 @@
 
 const utils = require('./utils')
 
-
 /**
  * Class representing a deck.
  */
@@ -27,7 +26,6 @@ class Deck {
       }
     }
   }
-
 
   /**
    * Shuffles the cards array by using the Fisher-Yates Shuffle algorithm.
@@ -50,7 +48,6 @@ class Deck {
   get cards () {
     return this._cards
   }
-  
 
   /**
    * Getting a card from cards.
@@ -59,7 +56,6 @@ class Deck {
   get card () {
     return this._cards.pop()
   }
-  
 
   /**
    * Pushing array elements into usedCards.
@@ -67,12 +63,11 @@ class Deck {
    */
   throwUsedCards (cards) {
     utils.checkArray(cards)
-    
+
     for (let card in cards) {
       this._usedCards.push(cards[card])
     }
   }
-  
 
   /**
    * Pushing array elements from usedCards to cards.
@@ -83,8 +78,6 @@ class Deck {
     }
     this._usedCards = []
   }
-
 }
-
 
 module.exports = Deck

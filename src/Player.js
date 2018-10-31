@@ -10,7 +10,6 @@
 
 const utils = require('./utils')
 
-
 /**
  * Represents a player
  * @constructor
@@ -23,7 +22,6 @@ function Player (name, stopValue) {
   this.stopValue = stopValue
 }
 
-
 /**
  * Push a card to the player hand array.
  * @memberof Player
@@ -33,7 +31,6 @@ Player.prototype.insertCard = function (card) {
   this.hand.push(card)
 }
 
-
 /**
  * Returns the total value of the players current hand.
  * @memberof Player
@@ -41,7 +38,7 @@ Player.prototype.insertCard = function (card) {
  */
 Player.prototype.totalValueOfHand = function () {
   let sum = 0
-  
+
   for (let a = 0; a < this.hand.length; a++) {
     if (this.hand[a].startsWith('A')) {
       if (sum <= 7) {
@@ -60,9 +57,8 @@ Player.prototype.totalValueOfHand = function () {
       sum += parseInt(number)
     }
   }
-  
+
   return sum
 }
-
 
 module.exports = Player
