@@ -1,7 +1,7 @@
 /**
  * Starting point of the application
  * @author Marcus Cvjeticanin (mc222sn)
- * @version 1.0
+ * @version 1.1
  */
 
 'use strict'

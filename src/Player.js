@@ -3,7 +3,7 @@
  *
  * @module src/player
  * @author Marcus Cvjeticanin
- * @version 1.0
+ * @version 1.1
  */
 
 'use strict'
